@@ -1,0 +1,24 @@
+<component-set>
+	<components>
+		<component>
+			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+			<role-hint>wood</role-hint>
+			<implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+			<configuration>
+				<phases>
+					<clean>com.js-lib:wood-maven-plugin:clean</clean>
+					<process-resources>com.js-lib:wood-maven-plugin:process-resources</process-resources>
+				</phases>
+			</configuration>
+		</component>
+		<component>
+			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+			<role-hint>wood</role-hint>
+			<implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+			<configuration>
+				<type>wood</type>
+				<packaging>wood</packaging>
+			</configuration>
+		</component>
+	</components>
+</component-set>
