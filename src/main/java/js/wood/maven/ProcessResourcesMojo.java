@@ -22,7 +22,16 @@ public class ProcessResourcesMojo extends AbstractMojo {
 	@Parameter(property = "buildNumber", required = false, defaultValue = "0")
 	private int buildNumber;
 
+	@Parameter(property = "disabled", required = false, defaultValue = "false")
+	private boolean disabled;
+
 	public void execute() throws MojoExecutionException {
+		if(disabled) {
+			// takes care to create empty directory if processing is disabled
+			outputDirectory.mkdirs();
+			return;
+		}
+		
 		try {
 			Builder builder = new Builder(project.getBasedir().getAbsolutePath());
 			builder.setSiteDir(outputDirectory);
