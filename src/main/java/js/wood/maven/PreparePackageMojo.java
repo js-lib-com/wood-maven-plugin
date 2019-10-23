@@ -4,13 +4,15 @@ import java.io.File;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import js.wood.Builder;
 
-@Mojo(name = "prepare-package")
+@Mojo(name = "build", defaultPhase = LifecyclePhase.PREPARE_PACKAGE, requiresDependencyResolution = ResolutionScope.RUNTIME, threadSafe = true)
 public class PreparePackageMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true)
 	private MavenProject project;
@@ -25,12 +27,12 @@ public class PreparePackageMojo extends AbstractMojo {
 	private boolean disabled;
 
 	public void execute() throws MojoExecutionException {
-		if(disabled) {
+		if (disabled) {
 			// takes care to create empty directory if processing is disabled
 			outputDirectory.mkdirs();
 			return;
 		}
-		
+
 		try {
 			Builder builder = new Builder(project.getBasedir().getAbsolutePath());
 			builder.setSiteDir(outputDirectory);
