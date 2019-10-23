@@ -1,2 +1,1 @@
-# wood-maven-plugin
-WOOD Builder
+# Maven plugin for WOOD builder.
