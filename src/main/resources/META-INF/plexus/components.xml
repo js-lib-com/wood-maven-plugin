@@ -7,7 +7,7 @@
 			<configuration>
 				<phases>
 					<clean>com.js-lib:wood-maven-plugin:clean</clean>
-					<prepare-package>com.js-lib:wood-maven-plugin:prepare-package</prepare-package>
+					<prepare-package>com.js-lib:wood-maven-plugin:build</prepare-package>
 				</phases>
 			</configuration>
 		</component>
