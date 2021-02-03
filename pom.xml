@@ -42,20 +42,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-plugin-plugin</artifactId>
-					<version>3.2</version>
-					<configuration>
-						<!-- see http://jira.codehaus.org/browse/MNG-5346 -->
-						<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
-					</configuration>
-
-					<executions>
-						<execution>
-							<id>mojo-descriptor</id>
-							<goals>
-								<goal>descriptor</goal>
-							</goals>
-						</execution>
-					</executions>
+					<version>3.3</version>
 				</plugin>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
@@ -187,8 +174,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.js-lib</groupId>
-			<artifactId>wood</artifactId>
-			<version>1.0.4-alpha</version>
+			<artifactId>wood-build</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.js-lib</groupId>
+			<artifactId>js-dom</artifactId>
+			<version>1.2.0</version>
 		</dependency>
 	</dependencies>
 
