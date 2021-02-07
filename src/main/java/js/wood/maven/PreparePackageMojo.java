@@ -41,6 +41,7 @@ public class PreparePackageMojo extends AbstractMojo {
 			}
 			builder.build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new MojoExecutionException(e.getMessage());
 		}
 	}
