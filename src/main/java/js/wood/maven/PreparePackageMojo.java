@@ -34,11 +34,7 @@ public class PreparePackageMojo extends AbstractMojo {
 		}
 
 		try {
-			Builder builder = new Builder(project.getBasedir().getAbsolutePath());
-			builder.setSiteDir(outputDirectory);
-			if (buildNumber > 0) {
-				builder.setBuildNumber(buildNumber);
-			}
+			Builder builder = new Builder(project.getBasedir(), outputDirectory, buildNumber);
 			builder.build();
 		} catch (Exception e) {
 			e.printStackTrace();
