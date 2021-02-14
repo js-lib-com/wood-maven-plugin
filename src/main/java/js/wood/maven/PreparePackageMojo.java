@@ -11,6 +11,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import js.wood.Builder;
+import js.wood.BuilderConfig;
 
 @Mojo(name = "build", defaultPhase = LifecyclePhase.PREPARE_PACKAGE, requiresDependencyResolution = ResolutionScope.RUNTIME, threadSafe = true)
 public class PreparePackageMojo extends AbstractMojo {
@@ -18,7 +19,7 @@ public class PreparePackageMojo extends AbstractMojo {
 	private MavenProject project;
 
 	@Parameter(property = "outputDirectory", required = false, defaultValue = "target/site")
-	private File outputDirectory;
+	private String outputDirectory;
 
 	@Parameter(property = "buildNumber", required = false, defaultValue = "0")
 	private int buildNumber;
@@ -27,14 +28,20 @@ public class PreparePackageMojo extends AbstractMojo {
 	private boolean disabled;
 
 	public void execute() throws MojoExecutionException {
-		if (disabled) {
-			// takes care to create empty directory if processing is disabled
-			outputDirectory.mkdirs();
-			return;
-		}
-
 		try {
-			Builder builder = new Builder(project.getBasedir(), outputDirectory, buildNumber);
+			BuilderConfig config = new BuilderConfig();
+			config.setProjectDir(project.getBasedir());
+			// build directory from BuilderConfig is absolute but outputDirectory field is relative to project root 
+			config.setBuildDir(new File(project.getBasedir(), outputDirectory));
+			config.setBuildNumber(buildNumber);
+
+			if (disabled) {
+				// ensure build directory is created even if processing is disabled
+				config.getBuildDir().mkdirs();
+				return;
+			}
+
+			Builder builder = new Builder(config);
 			builder.build();
 		} catch (Exception e) {
 			e.printStackTrace();
