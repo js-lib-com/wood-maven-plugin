@@ -1,4 +1,4 @@
-package js.wood.maven;
+package com.jslib.wood.maven;
 
 import java.io.File;
 import java.io.IOException;
