@@ -16,20 +16,10 @@ public class PreparePackageMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true)
 	private MavenProject project;
 
-	@Parameter(property = "outputDirectory", required = false, defaultValue = "target/site")
-	private String outputDirectory;
-
-	@Parameter(property = "buildNumber", required = false, defaultValue = "0")
-	private int buildNumber;
-
-	@Parameter(property = "disabled", required = false, defaultValue = "false")
-	private boolean disabled;
-
 	public void execute() throws MojoExecutionException {
 		try {
 			BuilderConfig config = new BuilderConfig();
 			config.setProjectDir(project.getBasedir());
-			config.setBuildNumber(buildNumber);
 
 			Builder builder = new Builder(config);
 			builder.build();

@@ -11,18 +11,25 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
+import com.jslib.wood.build.Builder;
+import com.jslib.wood.build.BuilderConfig;
+
 @Mojo(name = "clean", defaultPhase = LifecyclePhase.CLEAN, requiresDependencyResolution = ResolutionScope.RUNTIME, threadSafe = true)
 public class CleanMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true)
 	private MavenProject project;
 
-	@Parameter(property = "outputDirectory", required = false, defaultValue = "target/site")
-	private String outputDirectory;
-
 	public void execute() throws MojoExecutionException {
 		try {
-			delete(new File(project.getBasedir(), outputDirectory));
+			BuilderConfig config = new BuilderConfig();
+			config.setProjectDir(project.getBasedir());
+
+			Builder builder = new Builder(config);
+			delete(builder.getBuildDir().toFile());
 		} catch (IOException e) {
+			throw new MojoExecutionException(e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new MojoExecutionException(e.getMessage());
 		}
 	}
